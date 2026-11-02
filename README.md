@@ -4,7 +4,6 @@ An interactive document question-answering application built using **Retrieval-A
 
 Upload documents, ask natural-language questions, retrieve relevant information and generate context-aware answers using an LLM-powered workflow.
 
-> This project is an adaptation and extension of an existing open-source implementation. Original repository: [Advanced-RAG-LangGraph](https://github.com/chitralputhran/Advanced-RAG-LangGraph) by Chitral Puthran.
 
 ## Features
 
@@ -27,7 +26,7 @@ Upload documents, ask natural-language questions, retrieve relevant information 
 | LLM orchestration | LangChain |
 | Workflow management | LangGraph |
 | LLM provider | Groq |
-| Language model | Qwen |
+| Language model       | Qwen (qwen/qwen3.8-27b) |
 | Embeddings | Hugging Face Sentence Transformers |
 | Vector database | ChromaDB |
 | Online search | Tavily |
@@ -92,13 +91,12 @@ Advanced-RAG-LangGraph/
 
 ```bash
 git clone https://github.com/saksham2085/-Advanced-RAG-LangGraph.git
-
 cd -Advanced-RAG-LangGraph
 ```
 
 ### 2. Create a virtual environment
 
-**Windows:**
+**Windows (PowerShell):**
 
 ```powershell
 python -m venv .venv
@@ -118,7 +116,6 @@ source .venv/bin/activate
 python -m pip install --upgrade pip
 pip install -r requirements.txt
 ```
-
 If dependency resolution fails, install the compatible packages listed in the project configuration and resolve version conflicts before running the application.
 
 ### 4. Configure environment variables
@@ -130,9 +127,8 @@ GROQ_API_KEY=your_groq_api_key
 TAVILY_API_KEY=your_tavily_api_key
 ```
 
-Optional LangSmith tracing variables can be configured if tracing is enabled in the application.
+Never upload your `.env` file or expose API keys publicly.
 
-**Never upload your `.env` file or expose API keys publicly.**
 
 ### 5. Run the application
 

@@ -3,9 +3,9 @@ Document processing module for the Advanced RAG application
 """
 import streamlit as st
 import time
-from langchain.text_splitter import CharacterTextSplitter
+from langchain_text_splitters import CharacterTextSplitter
 from langchain_chroma import Chroma
-from langchain_openai import OpenAIEmbeddings
+from langchain_huggingface import HuggingFaceEmbeddings
 
 from config import CHUNK_SIZE, CHUNK_OVERLAP, CHROMA_COLLECTION_NAME, CHROMA_PERSIST_DIR
 from utils import get_file_key
@@ -17,7 +17,9 @@ class DocumentProcessor:
     
     def __init__(self, document_loader):
         self.document_loader = document_loader
-        self.embedding_function = OpenAIEmbeddings()
+        self.embedding_function = HuggingFaceEmbeddings(
+    model_name="sentence-transformers/all-MiniLM-L6-v2"
+)
     
     def process_file(self, user_file):
         """

@@ -1,12 +1,15 @@
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import StrOutputParser
-from langchain_openai import ChatOpenAI
+from langchain_groq import ChatGroq
 
 from dotenv import load_dotenv
 
 load_dotenv()
 
-llm = ChatOpenAI(temperature=0)
+llm = ChatGroq(
+    model="qwen/qwen3.8-27b",
+    temperature=0
+)
 
 # Custom RAG prompt for better answer generation
 system_prompt = """You are an expert assistant specializing in answering questions based on provided documents. Your goal is to provide accurate, helpful, and well-structured answers that directly address the user's question.

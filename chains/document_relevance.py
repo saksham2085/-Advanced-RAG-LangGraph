@@ -1,13 +1,15 @@
 from langchain_core.prompts import ChatPromptTemplate
 from pydantic import BaseModel, Field
 from langchain_core.runnables import RunnableSequence
-from langchain_openai import ChatOpenAI
+from langchain_groq import ChatGroq
 
 from dotenv import load_dotenv
 
 load_dotenv()
-
-llm = ChatOpenAI(temperature=0)
+llm = ChatGroq(
+    model="qwen/qwen3.8-27b",
+    temperature=0
+)
 
 
 class DocumentRelevance(BaseModel):

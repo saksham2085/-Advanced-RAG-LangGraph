@@ -13,14 +13,17 @@ Used within the LangGraph workflow to make routing decisions about whether
 to proceed with document-based answers or fall back to online search.
 """
 from langchain_core.prompts import ChatPromptTemplate
-from pydantic import BaseModel, Field
-from langchain_openai import ChatOpenAI
+from pydantic import BaseModel, Field, AliasChoices
+from langchain_groq import ChatGroq
 
 from dotenv import load_dotenv
 
 load_dotenv()
 
-llm = ChatOpenAI(temperature=0)
+llm = ChatGroq(
+    model="qwen/qwen3.8-27b",
+    temperature=0
+)
 
 class EvaluateDocs(BaseModel):
     """
@@ -32,8 +35,9 @@ class EvaluateDocs(BaseModel):
     """
     
     score: str = Field(
-        description="Whether documents are relevant to the question - 'yes' if sufficient, 'no' if insufficient"
-    )
+    description="Whether documents are relevant to the question - yes if sufficient, no if insufficient",
+    validation_alias=AliasChoices("score", "primary_score")
+)
     
     relevance_score: float = Field(
         default=0.5,
@@ -53,7 +57,10 @@ class EvaluateDocs(BaseModel):
     )
 
 
-structured_output = llm.with_structured_output(EvaluateDocs)
+structured_output = llm.with_structured_output(
+    EvaluateDocs,
+    method="json_schema"
+)
 
 system = """You are an expert document relevance evaluator for a RAG (Retrieval-Augmented Generation) system. Your role is to assess whether retrieved documents contain sufficient information to answer a user's query effectively.
 

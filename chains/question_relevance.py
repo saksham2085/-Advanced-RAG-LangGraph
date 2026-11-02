@@ -1,7 +1,7 @@
 from langchain_core.prompts import ChatPromptTemplate
 from pydantic import BaseModel, Field
 from langchain_core.runnables import RunnableSequence
-from langchain_openai import ChatOpenAI
+from langchain_groq import ChatGroq
 
 from dotenv import load_dotenv
 
@@ -36,8 +36,10 @@ class QuestionRelevance(BaseModel):
         description="Key aspects of the question that are not addressed in the answer (if any)"
     )
 
-
-llm = ChatOpenAI(temperature=0)
+llm = ChatGroq(
+    model="qwen/qwen3.8-27b",
+    temperature=0
+)
 structured_output = llm.with_structured_output(QuestionRelevance)
 
 system = """You are an expert question-answer relevance evaluator for a conversational AI system. Your role is to assess whether a generated answer properly addresses and resolves the user's question.

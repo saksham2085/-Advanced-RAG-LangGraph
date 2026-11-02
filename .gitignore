@@ -8,3 +8,6 @@ __pycache__/
 .chroma/
 *.log
 .DS_Store
+.chroma/
+*.db
+.DS_Store
